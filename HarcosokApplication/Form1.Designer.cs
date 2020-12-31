@@ -91,6 +91,7 @@ namespace HarcosokApplication
             this.letrehozasButton.TabIndex = 3;
             this.letrehozasButton.Text = "Létrehozás";
             this.letrehozasButton.UseVisualStyleBackColor = true;
+            this.letrehozasButton.Click += new System.EventHandler(this.letrehozasButton_Click);
             // 
             // label3
             // 
