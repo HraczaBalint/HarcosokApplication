@@ -15,6 +15,8 @@ namespace HarcosokApplication
     {
         MySqlConnection conn = null;
         MySqlCommand sql = null;
+        MySqlDataReader dr = null;
+
         public Form1()
         {
             InitializeComponent();
@@ -37,6 +39,7 @@ namespace HarcosokApplication
                 sql = conn.CreateCommand();
 
                 tablaMuveletek();
+                kepessegHasznalo();
 
             }
             catch (MySqlException ex)
@@ -47,8 +50,6 @@ namespace HarcosokApplication
                 return;
             }
 
-            
-            
 
         }
 
@@ -85,23 +86,107 @@ namespace HarcosokApplication
         {
             string harcosNev = harcosNeveTextBox.Text.ToString().Trim();
 
+            if (harcosNev.Length == 0)
+            {
+                MessageBox.Show("Üres nevet adtál meg!");
+                harcosNeveTextBox.Clear();
+                harcosNeveTextBox.Focus();
+                return;
+            }
+
             try
             {
                 using (sql = new MySqlCommand("INSERT INTO harcosok (nev) VALUES ('" + harcosNev + "')", conn))
                 {
-                    MySqlDataReader reader;
-                    reader = sql.ExecuteReader();
+                    dr = sql.ExecuteReader();
                     MessageBox.Show("Sikeres név felvétel!");
+                    dr.Close();
+                    harcosNeveTextBox.Clear();
+                    harcosNeveTextBox.Focus();
+
+                    kepessegHasznalo();
+                }
+                
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+                harcosNeveTextBox.Clear();
+                harcosNeveTextBox.Focus();
+                return;
+            }
+
+        }
+
+        private void kepessegHasznalo()
+        {
+            hasznaloComboBox.Items.Clear();
+
+            sql = new MySqlCommand("SELECT nev FROM harcosok ORDER BY id", conn);
+            dr = sql.ExecuteReader();
+
+            while (dr.Read())
+            {
+                hasznaloComboBox.Items.Add(dr[0].ToString());
+            }
+
+            dr.Close();
+        }
+
+        private void hozzaadasButton_Click(object sender, EventArgs e)
+        {
+            string kepessegNev = kepessegNeveTextBox.Text.ToString().Trim();
+            string kepessegLeirasa = leirasTextBox.Text.ToString().Trim();
+
+            int harcos_id = 0;
+
+            using (sql = new MySqlCommand("SELECT id FROM harcosok WHERE nev = '" + hasznaloComboBox.SelectedItem.ToString() + "'", conn))
+            {
+                dr = sql.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    harcos_id = (int)dr[0];
+                }
+
+                dr.Close();
+            }
+
+            if (kepessegNev.Length == 0)
+            {
+                MessageBox.Show("Üres képességnevet adtál meg!");
+                kepessegNeveTextBox.Clear();
+                kepessegNeveTextBox.Focus();
+                return;
+            }
+
+            if (kepessegLeirasa.Length == 0)
+            {
+                MessageBox.Show("Üres képességleírást adtál meg!");
+                leirasTextBox.Clear();
+                leirasTextBox.Focus();
+                return;
+            }
+
+            try
+            {
+                using (sql = new MySqlCommand("INSERT INTO kepessegek (nev, leiras, harcos_id) VALUES ('" + kepessegNev + "','" + kepessegLeirasa + "'," + harcos_id +")", conn))
+                {
+                    dr = sql.ExecuteReader();
+                    MessageBox.Show("Sikeres képesség felvétel!");
+                    dr.Close();
+                    kepessegNeveTextBox.Clear();
+                    leirasTextBox.Clear();
+                    kepessegNeveTextBox.Focus();
                 }
             }
             catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
-                conn.Close();
-                Environment.Exit(0);
+                kepessegNeveTextBox.Clear();
+                leirasTextBox.Clear();
                 return;
             }
-
         }
     }
 }

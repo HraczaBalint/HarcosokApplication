@@ -38,7 +38,7 @@ namespace HarcosokApplication
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.kepessegNeveTextBox = new System.Windows.Forms.TextBox();
-            this.HasznaloComboBox = new System.Windows.Forms.ComboBox();
+            this.hasznaloComboBox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.leirasTextBox = new System.Windows.Forms.TextBox();
             this.hozzaadasButton = new System.Windows.Forms.Button();
@@ -48,7 +48,7 @@ namespace HarcosokApplication
             this.harcosokListBox = new System.Windows.Forms.ListBox();
             this.kepessegekListBox = new System.Windows.Forms.ListBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.kepessegLeirasaTextBox = new System.Windows.Forms.TextBox();
+            this.leirasaTextBox = new System.Windows.Forms.TextBox();
             this.modositasButton = new System.Windows.Forms.Button();
             this.torlesButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -139,14 +139,15 @@ namespace HarcosokApplication
             this.kepessegNeveTextBox.Size = new System.Drawing.Size(200, 30);
             this.kepessegNeveTextBox.TabIndex = 8;
             // 
-            // HasznaloComboBox
+            // hasznaloComboBox
             // 
-            this.HasznaloComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.HasznaloComboBox.FormattingEnabled = true;
-            this.HasznaloComboBox.Location = new System.Drawing.Point(130, 188);
-            this.HasznaloComboBox.Name = "HasznaloComboBox";
-            this.HasznaloComboBox.Size = new System.Drawing.Size(200, 33);
-            this.HasznaloComboBox.TabIndex = 9;
+            this.hasznaloComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.hasznaloComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.hasznaloComboBox.FormattingEnabled = true;
+            this.hasznaloComboBox.Location = new System.Drawing.Point(130, 188);
+            this.hasznaloComboBox.Name = "hasznaloComboBox";
+            this.hasznaloComboBox.Size = new System.Drawing.Size(200, 33);
+            this.hasznaloComboBox.TabIndex = 9;
             // 
             // label7
             // 
@@ -177,6 +178,7 @@ namespace HarcosokApplication
             this.hozzaadasButton.TabIndex = 12;
             this.hozzaadasButton.Text = "Hozzáadás";
             this.hozzaadasButton.UseVisualStyleBackColor = true;
+            this.hozzaadasButton.Click += new System.EventHandler(this.hozzaadasButton_Click);
             // 
             // label8
             // 
@@ -238,12 +240,12 @@ namespace HarcosokApplication
             // 
             // kepessegLeirasaTextBox
             // 
-            this.kepessegLeirasaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.kepessegLeirasaTextBox.Location = new System.Drawing.Point(504, 442);
-            this.kepessegLeirasaTextBox.Multiline = true;
-            this.kepessegLeirasaTextBox.Name = "kepessegLeirasaTextBox";
-            this.kepessegLeirasaTextBox.Size = new System.Drawing.Size(330, 93);
-            this.kepessegLeirasaTextBox.TabIndex = 19;
+            this.leirasaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.leirasaTextBox.Location = new System.Drawing.Point(504, 442);
+            this.leirasaTextBox.Multiline = true;
+            this.leirasaTextBox.Name = "kepessegLeirasaTextBox";
+            this.leirasaTextBox.Size = new System.Drawing.Size(330, 93);
+            this.leirasaTextBox.TabIndex = 19;
             // 
             // modositasButton
             // 
@@ -274,7 +276,7 @@ namespace HarcosokApplication
             this.ClientSize = new System.Drawing.Size(854, 808);
             this.Controls.Add(this.torlesButton);
             this.Controls.Add(this.modositasButton);
-            this.Controls.Add(this.kepessegLeirasaTextBox);
+            this.Controls.Add(this.leirasaTextBox);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.kepessegekListBox);
             this.Controls.Add(this.harcosokListBox);
@@ -284,7 +286,7 @@ namespace HarcosokApplication
             this.Controls.Add(this.hozzaadasButton);
             this.Controls.Add(this.leirasTextBox);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.HasznaloComboBox);
+            this.Controls.Add(this.hasznaloComboBox);
             this.Controls.Add(this.kepessegNeveTextBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -313,7 +315,7 @@ namespace HarcosokApplication
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox kepessegNeveTextBox;
-        private System.Windows.Forms.ComboBox HasznaloComboBox;
+        private System.Windows.Forms.ComboBox hasznaloComboBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox leirasTextBox;
         private System.Windows.Forms.Button hozzaadasButton;
@@ -323,7 +325,7 @@ namespace HarcosokApplication
         private System.Windows.Forms.ListBox harcosokListBox;
         private System.Windows.Forms.ListBox kepessegekListBox;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox kepessegLeirasaTextBox;
+        private System.Windows.Forms.TextBox leirasaTextBox;
         private System.Windows.Forms.Button modositasButton;
         private System.Windows.Forms.Button torlesButton;
     }
