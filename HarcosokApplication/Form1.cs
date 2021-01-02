@@ -40,7 +40,7 @@ namespace HarcosokApplication
 
                 tablaMuveletek();
                 kepessegHasznalo();
-
+                harcosokListaja();
             }
             catch (MySqlException ex)
             {
@@ -105,6 +105,7 @@ namespace HarcosokApplication
                     harcosNeveTextBox.Focus();
 
                     kepessegHasznalo();
+                    harcosokListaja();
                 }
                 
             }
@@ -140,7 +141,19 @@ namespace HarcosokApplication
 
             int harcos_id = 0;
 
-            using (sql = new MySqlCommand("SELECT id FROM harcosok WHERE nev = '" + hasznaloComboBox.SelectedItem.ToString() + "'", conn))
+            string kivalszottHarcos = null;
+
+            if (hasznaloComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Nem válaszottál ki harcost!");
+                return;
+            }
+            else
+            {
+                kivalszottHarcos = hasznaloComboBox.SelectedItem.ToString();
+            }
+
+            using (sql = new MySqlCommand("SELECT id FROM harcosok WHERE nev = '" + kivalszottHarcos + "'", conn))
             {
                 dr = sql.ExecuteReader();
 
@@ -186,6 +199,233 @@ namespace HarcosokApplication
                 kepessegNeveTextBox.Clear();
                 leirasTextBox.Clear();
                 return;
+            }
+
+            harcosokKepessegei();
+        }
+
+        private void harcosokListaja()
+        {
+            harcosokListBox.Items.Clear();
+
+            sql = new MySqlCommand("SELECT nev, letrehozas FROM harcosok ORDER BY id", conn);
+            dr = sql.ExecuteReader();
+
+            while (dr.Read())
+            {
+                DateTime dateTime = DateTime.Now;
+                dateTime.ToString("yyyy/MM/dd");
+
+                harcosokListBox.Items.Add(dr[0].ToString() + "\t" + dr[1].ToString().Substring(0,12));
+            }
+
+            dr.Close();
+        }
+
+        private void harcosokKepessegei()
+        {
+            kepessegekListBox.Items.Clear();
+            leirasaTextBox.Clear();
+
+            string kivalaszottHarcos = null;
+
+            if (harcosokListBox.SelectedItem == null)
+            {
+                return;
+            }
+            else
+            {
+                kivalaszottHarcos = harcosokListBox.SelectedItem.ToString().Split('\t')[0];
+            }
+
+            int kivalszottharcosIDje = 0;
+
+            try
+            {
+                using (sql = new MySqlCommand("SELECT id FROM harcosok WHERE nev='" + kivalaszottHarcos + "'", conn))
+                {
+                    dr = sql.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        kivalszottharcosIDje = (int)dr[0];
+                    }
+
+                    dr.Close();
+                }
+
+                using (sql = new MySqlCommand("SELECT nev FROM kepessegek WHERE harcos_id =" + kivalszottharcosIDje, conn))
+                {
+                    dr = sql.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        kepessegekListBox.Items.Add(dr[0].ToString());
+                    }
+
+                    dr.Close();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+        }
+
+        private void harcosokListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            harcosokKepessegei();
+        }
+
+        private void kepessegekListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            leirasaTextBox.Clear();
+
+            string kivalasztottKepesseg = null;
+
+            if (kepessegekListBox.SelectedItem == null)
+            {
+                leirasaTextBox.Clear();
+            }
+            else
+            {
+                kivalasztottKepesseg = kepessegekListBox.SelectedItem.ToString();
+            }
+
+            int kivalasztottKepessegIDje = 0;
+
+            try
+            {
+                using (sql = new MySqlCommand("SELECT id FROM kepessegek WHERE nev='" + kivalasztottKepesseg + "'", conn))
+                {
+                    dr = sql.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        kivalasztottKepessegIDje = (int)dr[0];
+                    }
+
+                    dr.Close();
+                }
+
+                using (sql = new MySqlCommand("SELECT leiras FROM kepessegek WHERE id=" + kivalasztottKepessegIDje, conn))
+                {
+                    dr = sql.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        leirasaTextBox.Text = dr[0].ToString();
+                    }
+
+                    dr.Close();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+        }
+
+        private void torlesButton_Click(object sender, EventArgs e)
+        {
+            string torlendoKepesseg = null;
+
+            if (kepessegekListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Nincs kiválaszott képesség!");
+            }
+            else
+            {
+                torlendoKepesseg = kepessegekListBox.SelectedItem.ToString();
+            }
+
+            int torlendKepessegIDje = 0;
+
+            try
+            {
+                using (sql = new MySqlCommand("SELECT id FROM kepessegek WHERE nev ='" + torlendoKepesseg + "'", conn))
+                {
+                    dr = sql.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        torlendKepessegIDje = (int)dr[0];
+                    }
+
+                    dr.Close();
+                }
+
+                using (sql = new MySqlCommand("DELETE FROM kepessegek WHERE id=" + torlendKepessegIDje, conn))
+                {
+                    dr = sql.ExecuteReader();
+
+                    MessageBox.Show("Képesség törölve!");
+
+                    dr.Close();
+
+                    harcosokKepessegei();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void modositasButton_Click(object sender, EventArgs e)
+        {
+            string modositandoKepesseg = null;
+
+            if (kepessegekListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Nincs kiválaszott képesség!");
+            }
+            else
+            {
+                modositandoKepesseg = kepessegekListBox.SelectedItem.ToString();
+            }
+
+            int modositandoKepessegIDje = 0;
+            string modositandoLeiras = null;
+
+            if (leirasaTextBox.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Üres képességleirást adtál meg!");
+                return;
+            }
+            else
+            {
+                modositandoLeiras = leirasaTextBox.Text.ToString();
+            }
+
+            try
+            {
+                using (sql = new MySqlCommand("SELECT id FROM kepessegek WHERE nev ='" + modositandoKepesseg + "'", conn))
+                {
+                    dr = sql.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        modositandoKepessegIDje = (int)dr[0];
+                    }
+
+                    dr.Close();
+                }
+
+                using (sql = new MySqlCommand("UPDATE kepessegek SET leiras = '" + modositandoLeiras + "' WHERE id =" + modositandoKepessegIDje, conn))
+                {
+                    dr = sql.ExecuteReader();
+
+                    MessageBox.Show("Képességleírás frissítve!");
+
+                    dr.Close();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

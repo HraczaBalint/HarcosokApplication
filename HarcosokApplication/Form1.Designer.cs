@@ -117,9 +117,9 @@ namespace HarcosokApplication
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label5.Location = new System.Drawing.Point(13, 191);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(111, 25);
+            this.label5.Size = new System.Drawing.Size(100, 25);
             this.label5.TabIndex = 6;
-            this.label5.Text = "Használnó:";
+            this.label5.Text = "Használó:";
             // 
             // label6
             // 
@@ -153,7 +153,7 @@ namespace HarcosokApplication
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.Location = new System.Drawing.Point(388, 191);
+            this.label7.Location = new System.Drawing.Point(563, 191);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(71, 25);
             this.label7.TabIndex = 10;
@@ -162,7 +162,7 @@ namespace HarcosokApplication
             // leirasTextBox
             // 
             this.leirasTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.leirasTextBox.Location = new System.Drawing.Point(465, 188);
+            this.leirasTextBox.Location = new System.Drawing.Point(640, 188);
             this.leirasTextBox.Multiline = true;
             this.leirasTextBox.Name = "leirasTextBox";
             this.leirasTextBox.Size = new System.Drawing.Size(330, 93);
@@ -202,7 +202,7 @@ namespace HarcosokApplication
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label10.Location = new System.Drawing.Point(254, 396);
+            this.label10.Location = new System.Drawing.Point(357, 396);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(122, 25);
             this.label10.TabIndex = 15;
@@ -215,35 +215,37 @@ namespace HarcosokApplication
             this.harcosokListBox.ItemHeight = 25;
             this.harcosokListBox.Location = new System.Drawing.Point(17, 442);
             this.harcosokListBox.Name = "harcosokListBox";
-            this.harcosokListBox.Size = new System.Drawing.Size(200, 279);
+            this.harcosokListBox.Size = new System.Drawing.Size(313, 279);
             this.harcosokListBox.TabIndex = 16;
+            this.harcosokListBox.SelectedIndexChanged += new System.EventHandler(this.harcosokListBox_SelectedIndexChanged);
             // 
             // kepessegekListBox
             // 
             this.kepessegekListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.kepessegekListBox.FormattingEnabled = true;
             this.kepessegekListBox.ItemHeight = 25;
-            this.kepessegekListBox.Location = new System.Drawing.Point(259, 442);
+            this.kepessegekListBox.Location = new System.Drawing.Point(362, 442);
             this.kepessegekListBox.Name = "kepessegekListBox";
             this.kepessegekListBox.Size = new System.Drawing.Size(200, 279);
             this.kepessegekListBox.TabIndex = 17;
+            this.kepessegekListBox.SelectedIndexChanged += new System.EventHandler(this.kepessegekListBox_SelectedIndexChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label11.Location = new System.Drawing.Point(499, 396);
+            this.label11.Location = new System.Drawing.Point(635, 396);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(169, 25);
             this.label11.TabIndex = 18;
             this.label11.Text = "Képesség leírása:";
             // 
-            // kepessegLeirasaTextBox
+            // leirasaTextBox
             // 
             this.leirasaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.leirasaTextBox.Location = new System.Drawing.Point(504, 442);
+            this.leirasaTextBox.Location = new System.Drawing.Point(640, 442);
             this.leirasaTextBox.Multiline = true;
-            this.leirasaTextBox.Name = "kepessegLeirasaTextBox";
+            this.leirasaTextBox.Name = "leirasaTextBox";
             this.leirasaTextBox.Size = new System.Drawing.Size(330, 93);
             this.leirasaTextBox.TabIndex = 19;
             // 
@@ -251,29 +253,31 @@ namespace HarcosokApplication
             // 
             this.modositasButton.AutoSize = true;
             this.modositasButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.modositasButton.Location = new System.Drawing.Point(715, 561);
+            this.modositasButton.Location = new System.Drawing.Point(851, 566);
             this.modositasButton.Name = "modositasButton";
             this.modositasButton.Size = new System.Drawing.Size(119, 35);
             this.modositasButton.TabIndex = 20;
             this.modositasButton.Text = "Módosítás";
             this.modositasButton.UseVisualStyleBackColor = true;
+            this.modositasButton.Click += new System.EventHandler(this.modositasButton_Click);
             // 
             // torlesButton
             // 
             this.torlesButton.AutoSize = true;
             this.torlesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.torlesButton.Location = new System.Drawing.Point(259, 751);
+            this.torlesButton.Location = new System.Drawing.Point(443, 751);
             this.torlesButton.Name = "torlesButton";
             this.torlesButton.Size = new System.Drawing.Size(119, 35);
             this.torlesButton.TabIndex = 21;
             this.torlesButton.Text = "Törlés";
             this.torlesButton.UseVisualStyleBackColor = true;
+            this.torlesButton.Click += new System.EventHandler(this.torlesButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(854, 808);
+            this.ClientSize = new System.Drawing.Size(982, 808);
             this.Controls.Add(this.torlesButton);
             this.Controls.Add(this.modositasButton);
             this.Controls.Add(this.leirasaTextBox);
